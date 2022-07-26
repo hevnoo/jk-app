@@ -1,0 +1,65 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo" [ngStyle]="{'display':isCollapsed?'none':'block'}">
+        NG舆情监控系统
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-submenu nzTitle="起始页" nzIcon="home" nzOpen>
+          <ul>
+            <li nz-menu-item >
+                <a [routerLink]="['/main/home']">后台首页</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="舆情报告" nzIcon="database" nzOpen>
+          <ul>
+            <li nz-menu-item>
+                <a [routerLink]="['/main/report']">全部舆情</a>
+            </li>
+            <li nz-menu-item>
+                <a [routerLink]="['/main/report']">正面舆情</a>
+            </li>
+            <li nz-menu-item>
+                <a [routerLink]="['/main/report']">负面舆情</a>
+            </li>
+          </ul>
+        </li>
+        <!--  -->
+        <li nz-submenu nzTitle="舆情设置" nzIcon="setting" nzOpen>
+            <ul>
+              <li nz-menu-item>
+                  <a [routerLink]="['/main/keywords']">舆情关键词设置</a>
+              </li>
+              <li nz-menu-item>
+                  <a [routerLink]="['/main/alarm']">舆情报警设置</a>
+              </li>
+            </ul>
+          </li>
+          <!--  -->
+        <!-- <li nz-menu-item>
+          <i nz-icon nzType="file"></i>
+          <span>File</span>
+        </li> -->
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <i
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+        ></i>
+        <button class="loginb" nz-button nzType="text" [ngStyle]="{'margin-left':'75vw'}" [routerLink]="['/login']">登录</button>
+      </nz-header>
+      <nz-content>
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>start/</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div class="inner-content">
+            <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    </nz-layout>
+  </nz-layout>

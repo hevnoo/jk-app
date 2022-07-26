@@ -1,0 +1,40 @@
+.login-body{
+  min-height: 100vh;
+  background:url('../../../assets/img/bz.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form {
+  max-width: 400px;
+  width: 50vw;
+  // height: 60vw;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+.login-idcard{
+  display: inline-block;
+  input{
+    width: 12vw;
+  }
+  .idc{
+    //验证码
+    display: inline-block;
+    width: 5vw;
+    height: 2vw;
+    color: black;
+    background-color:aqua;
+    line-height: 2vw;
+    text-align: center;
+  }
+}
