@@ -1,0 +1,57 @@
+
+<div class="top">
+  <!-- <button nz-button nzType="primary" class="button1">增加关键字</button> -->
+  <button nz-button nzType="primary" class="button1" (click)="showModal()">
+    <span>增加关键字</span>
+  </button>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="加关键字"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzOkLoading]="isOkLoading"
+  >
+    <!-- <p *nzModalContent>Modal Content</p> -->
+<ul *nzModalContent>
+
+  <li>
+    <span>必须包含：</span><input nz-input placeholder="必须包含的data" [(ngModel)]="inputdata.keyword" />
+  </li>
+  <li>
+    <span>可包含:</span><input nz-input placeholder="可包含的data" [(ngModel)]="inputdata.may_keyword"/>
+  </li>
+  <li>
+    <span>不包含:</span><input nz-input placeholder="不包含的data" [(ngModel)]="inputdata.nokeyword"/>
+  </li>
+  <li>
+    <span>监控屏率:</span><input nz-input placeholder="监控屏率" [(ngModel)]="inputdata.frequency"/>
+  </li>
+</ul>
+
+  </nz-modal>
+</div>
+
+<nz-table #basicTable [nzData]="listOfData" >
+  <thead>
+    <tr>
+      <th>必须包含</th>
+      <th>可包含</th>
+      <th>不包含</th>
+      <th>监控屏率</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of listOfData ;let i=index">
+      <td>{{ data.keyword }}</td>
+      <td>{{ data.may_keyword }}</td>
+      <td>{{ data.nokeyword }}</td>
+      <td>{{ data.frequency }}</td>
+      <td>{{i}}
+        <!-- <nz-divider nzType="vertical"></nz-divider> -->
+        <a [ngStyle]="{'margin':'0 10px'}" (click)="xiugai()">修改</a>
+        <a (click)="shanchu()">删除</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

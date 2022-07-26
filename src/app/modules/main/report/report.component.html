@@ -1,0 +1,59 @@
+<div class="riqi">
+  <div class="riqi2">
+    <nz-space>
+      <nz-select *nzSpaceItem [(ngModel)]="mode">
+        <nz-option nzValue="date" nzLabel="Date"></nz-option>
+        <nz-option nzValue="week" nzLabel="Week"></nz-option>
+        <nz-option nzValue="month" nzLabel="Month"></nz-option>
+        <nz-option nzValue="year" nzLabel="Year"></nz-option>
+      </nz-select>
+      <nz-date-picker *nzSpaceItem [nzMode]="mode"></nz-date-picker>
+    </nz-space>
+    <button nz-button nzType="primary">
+      <i nz-icon nzType="search"></i>
+      搜索
+    </button>
+  </div>
+  </div>
+    <!-- 上面日期 -->
+    <nz-table #basicTable 
+    [nzData]="listOfData"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+    >
+      <thead>
+        <tr>
+          <th nzWidth="400px">标题/类型</th>
+            <th>舆情类型</th>
+            <th>舆情关键词</th>
+            <th>舆情网站</th>
+            <th>发现时间</th>
+            <th>帖子时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listOfData">
+          <td>{{ data.title }}</td>
+          <td>{{ data.type }}</td>
+          <td>{{ data.keyword }}</td>
+          <td>
+              {{ data.site }}
+          </td>
+          <td>
+              {{ data.update_time }}
+          </td>
+          <td>
+              {{ data.add_time }}
+          </td>
+          <!-- <td>
+            <a>Action 一 {{ data.name }}</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+          </td> -->
+        </tr>
+      </tbody>
+    </nz-table>
