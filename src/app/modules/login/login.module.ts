@@ -10,7 +10,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-
+import { HttpService } from 'src/app/service/http.service';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+// import { LoginGuard } from 'src/app/service/login.guard';
+import { StorageService } from 'src/app/service/storage.service';
 @NgModule({
   declarations: [
     LoginComponent
@@ -24,7 +27,9 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     NzInputModule,
     NzButtonModule,
     ReactiveFormsModule,
-    NzCheckboxModule
-  ]
+    NzCheckboxModule,
+    NzModalModule,
+  ],
+  providers:[HttpService,StorageService]
 })
 export class LoginModule { }
