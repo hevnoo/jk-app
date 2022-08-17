@@ -69,7 +69,15 @@ export class LoginComponent implements OnInit {
 
     if(this.loginData.password&&this.loginData.username&&this.loginData.verify){
       // this.storage.set('userinfo',this.loginData.username);
-      this.router.navigate(['/main'])
+      this.router.navigate(['/main/home']);
+      
+      if (!this.storage.storage) {
+        console.log('浏览器版本太低，不支持localStorage')
+      } else {
+        // let storage = window.localStorage;
+        let dataValue = JSON.stringify(this.loginData)
+        this.storage.storage.setItem('data', dataValue)
+      }
     }else{
       alert('输入的信息有误！')
     }
@@ -78,6 +86,13 @@ export class LoginComponent implements OnInit {
 
   showModal(): void {
     this.isVisible = true;
+    if (!this.storage.storage) {
+      console.log('浏览器版本太低，不支持localStorage')
+    } else {
+      // let storage = window.localStorage
+      this.storage.storage.clear()         // 删除所有键值对
+      // storage.removeItem('a') // 删除指定的键值对
+    }
   }
   handleOk(): void {
     console.log('Button ok clicked!');

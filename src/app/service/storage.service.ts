@@ -5,8 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class StorageService {
 
+  public storage:any=window.localStorage;
+  
   constructor() { }
-
+  
   // set(key:string,value:any){
   //   localStorage.setItem(key,JSON.stringify(value));
   // }
