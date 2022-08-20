@@ -3,31 +3,55 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
+import { HttpService } from './http.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(public router:Router,public storage:StorageService){
-    
-  }
+  constructor(public router:Router,
+    public storage:StorageService,
+    public http:HttpService
+    ){ }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      let info=this.storage.storage.getItem('data');
-      let userinfo = JSON.parse(info);
-      // console.log('存储信息：',userinfo)
-      if(!userinfo){
-        console.log('未通过',userinfo)
-        this.router.navigate(["/login"]);
-        return false;
-      }else{
-        console.log('用户名的键名：',userinfo.username)
-        return true;
-      }
-
+      return new Promise((resolve,reject)=>{
+          // let info=this.storage.w_storage.getItem('data');
+          // let userinfo = JSON.parse(info);
+          let userinfo = this.storage.get('userinfo')
+          console.log('存储信息：',userinfo)
+          if(!userinfo||!userinfo.username){
+            console.log('未通过',userinfo)
+            this.router.navigate(["/login"]);
+          }else{
+            //2、请求接口验证token
+            let t_api = "http://yuqing.itying.com/api/validateToken";
+            this.http.get(t_api, {
+              auth: {
+                username: userinfo.token,
+                password: ''
+              }
+            }).then(
+              (res:any) => {      
+                console.log('含token的验证:',res)       
+                if (res.data.success==false && res.data.message=="token_error") {
+                  console.log('未获得token')
+                  this.router.navigate(["/login"]);
+                }else{
+                  console.log('获得token')
+                  resolve(true);
+                }
+              }),
+              (rej:any) =>{
+                console.log('没有token')
+                reject(false);
+              }
+          }
+      })
   }
   
 }

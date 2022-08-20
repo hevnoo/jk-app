@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/service/http.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -56,41 +57,38 @@ export class LoginComponent implements OnInit {
       );
   };
   doLogin(){
-    // this.apiLogin='http://yuqing.itying.com/api/doLogin';
-    // this.http.post(this.apiLogin,this.loginData).then(
-    //   (res:any)=>{
-    //     console.log(res)
-    //   },
-    //   (rej:any)=>{
-    //     console.log(rej)
-    //   }
-    //   );
-    // login这个api失效！！！
-
-    if(this.loginData.password&&this.loginData.username&&this.loginData.verify){
-      // this.storage.set('userinfo',this.loginData.username);
-      this.router.navigate(['/main/home']);
-      
-      if (!this.storage.storage) {
-        console.log('浏览器版本太低，不支持localStorage')
-      } else {
-        // let storage = window.localStorage;
-        let dataValue = JSON.stringify(this.loginData)
-        this.storage.storage.setItem('data', dataValue)
+    this.apiLogin='http://yuqing.itying.com/api/doLogin';
+    this.http.post(this.apiLogin,this.loginData).then(
+      (res:any)=>{
+        console.log(res);
+        if(res.data.success){
+          console.log('本地存储的',res.data)
+          this.storage.set('userinfo',res.data.result);
+          this.router.navigate(['/main/home']);
+          // if (!this.storage.w_storage) {
+          //   console.log('不支持localStorage')
+          // } else {
+          //   // let storage = window.localStorage;
+          //   let dataValue = JSON.stringify(this.loginData)
+          //   this.storage.w_storage.setItem('data', dataValue)
+          // }
+        }else{
+          alert(res.data.message)
+        }
+      },
+      (rej:any)=>{
+        console.log(rej)
       }
-    }else{
-      alert('输入的信息有误！')
-    }
-    
+      );
   };
 
   showModal(): void {
     this.isVisible = true;
-    if (!this.storage.storage) {
-      console.log('浏览器版本太低，不支持localStorage')
+    if (!this.storage.w_storage) {
+      console.log('不支持localStorage')
     } else {
       // let storage = window.localStorage
-      this.storage.storage.clear()         // 删除所有键值对
+      this.storage.w_storage.clear()         // 删除所有键值对
       // storage.removeItem('a') // 删除指定的键值对
     }
   }

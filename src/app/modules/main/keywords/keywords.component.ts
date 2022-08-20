@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from 'src/app/service/http.service';
 
 @Component({
   selector: 'app-keywords',
@@ -41,7 +42,7 @@ export class KeywordsComponent implements OnInit {
   ];
 
   
-  constructor() { }
+  constructor(public http:HttpService) { }
 
   ngOnInit(): void {
     // console.log(this.keys)
