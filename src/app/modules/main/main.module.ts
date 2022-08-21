@@ -28,6 +28,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzSpaceModule,
     NzDividerModule ,
     NzModalModule,
+    NzPaginationModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   //providers也是zorro对应的，也要引过来

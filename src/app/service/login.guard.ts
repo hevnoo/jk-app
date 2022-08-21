@@ -23,31 +23,26 @@ export class LoginGuard implements CanActivate {
           // let info=this.storage.w_storage.getItem('data');
           // let userinfo = JSON.parse(info);
           let userinfo = this.storage.get('userinfo')
-          console.log('存储信息：',userinfo)
           if(!userinfo||!userinfo.username){
-            console.log('未通过',userinfo)
             this.router.navigate(["/login"]);
           }else{
             //2、请求接口验证token
             let t_api = "http://yuqing.itying.com/api/validateToken";
             this.http.get(t_api, {
               auth: {
+                //这里username: userinfo.token就是token
                 username: userinfo.token,
                 password: ''
               }
             }).then(
               (res:any) => {      
-                console.log('含token的验证:',res)       
                 if (res.data.success==false && res.data.message=="token_error") {
-                  console.log('未获得token')
                   this.router.navigate(["/login"]);
                 }else{
-                  console.log('获得token')
                   resolve(true);
                 }
               }),
               (rej:any) =>{
-                console.log('没有token')
                 reject(false);
               }
           }

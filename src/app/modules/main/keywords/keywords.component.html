@@ -4,34 +4,65 @@
   <button nz-button nzType="primary" class="button1" (click)="showModal()">
     <span>增加关键字</span>
   </button>
+  <!-- add对话框 -->
   <nz-modal
     [(nzVisible)]="isVisible"
     nzTitle="加关键字"
     (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk()"
-    [nzOkLoading]="isOkLoading"
+    [nzOkLoading]="isEditOkLoading"
   >
-    <!-- <p *nzModalContent>Modal Content</p> -->
-<ul *nzModalContent>
-
-  <li>
-    <span>必须包含：</span><input nz-input placeholder="必须包含的data" [(ngModel)]="inputdata.keyword" />
-  </li>
-  <li>
-    <span>可包含:</span><input nz-input placeholder="可包含的data" [(ngModel)]="inputdata.may_keyword"/>
-  </li>
-  <li>
-    <span>不包含:</span><input nz-input placeholder="不包含的data" [(ngModel)]="inputdata.nokeyword"/>
-  </li>
-  <li>
-    <span>监控屏率:</span><input nz-input placeholder="监控屏率" [(ngModel)]="inputdata.frequency"/>
-  </li>
-</ul>
-
+    <ul *nzModalContent>
+      <li>
+        <span>必须包含：</span><input nz-input placeholder="必须包含的data" [(ngModel)]="inputData.keyword" />
+      </li>
+      <li>
+        <span>可包含:</span><input nz-input placeholder="可包含的data" [(ngModel)]="inputData.may_keyword"/>
+      </li>
+      <li>
+        <span>不包含:</span><input nz-input placeholder="不包含的data" [(ngModel)]="inputData.nokeyword"/>
+      </li>
+      <li>
+        <span>监控屏率:</span><input nz-input placeholder="监控屏率" [(ngModel)]="inputData.frequency"/>
+      </li>
+    </ul>
+  </nz-modal>
+  <!-- 编辑对话框 -->
+  <nz-modal
+  [(nzVisible)]="isEditVisible"
+  nzTitle="编辑关键字"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleEdit()"
+  [nzOkLoading]="isOkLoading"
+  >
+    <ul *nzModalContent>
+      <li>
+        <span>必须包含：</span><input nz-input placeholder="必须包含的data" [(ngModel)]="editData.keyword" />
+      </li>
+      <li>
+        <span>可包含:</span><input nz-input placeholder="可包含的data" [(ngModel)]="editData.may_keyword"/>
+      </li>
+      <li>
+        <span>不包含:</span><input nz-input placeholder="不包含的data" [(ngModel)]="editData.nokeyword"/>
+      </li>
+      <li>
+        <span>监控屏率:</span><input nz-input placeholder="监控屏率" [(ngModel)]="editData.frequency"/>
+      </li>
+    </ul>
   </nz-modal>
 </div>
 
-<nz-table #basicTable [nzData]="listOfData" >
+<!-- 表单 -->
+<nz-table #basicTable
+      [nzData]="listOfData"
+      [nzFrontPagination]="false"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [nzPageSize]="pageSize"
+      [nzShowSizeChanger]="true"
+      [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)"
+ >
   <thead>
     <tr>
       <th>必须包含</th>
@@ -48,10 +79,11 @@
       <td>{{ data.nokeyword }}</td>
       <td>{{ data.frequency }}</td>
       <td>{{i}}
-        <!-- <nz-divider nzType="vertical"></nz-divider> -->
-        <a [ngStyle]="{'margin':'0 10px'}" (click)="xiugai()">修改</a>
-        <a (click)="shanchu()">删除</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a [ngStyle]="{'margin':'0 10px'}" (click)="get_id(data.id)">修改</a>
+        <a nzType="dashed" (click)="showDeleteConfirm(data.id)">删除</a>
       </td>
     </tr>
   </tbody>
+
 </nz-table>

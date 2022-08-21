@@ -60,9 +60,8 @@ export class LoginComponent implements OnInit {
     this.apiLogin='http://yuqing.itying.com/api/doLogin';
     this.http.post(this.apiLogin,this.loginData).then(
       (res:any)=>{
-        console.log(res);
+        // console.log('login:',res);
         if(res.data.success){
-          console.log('本地存储的',res.data)
           this.storage.set('userinfo',res.data.result);
           this.router.navigate(['/main/home']);
           // if (!this.storage.w_storage) {
