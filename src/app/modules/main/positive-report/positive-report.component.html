@@ -1,0 +1,50 @@
+<div class="main_top">
+
+    <nz-date-picker [(ngModel)]="start_time" nzPlaceHolder="起始日期"></nz-date-picker>
+  
+    -
+  
+    <nz-date-picker [(ngModel)]="end_time" nzPlaceHolder="结束日期"></nz-date-picker>
+  
+    <button nz-button nzType="primary" (click)="doSearch()">搜索</button>
+  
+  </div>
+  
+  <nz-table #basicTable 
+    [nzData]="listData" 
+    [nzLoading]="loading" 
+    [nzTotal]="total" 
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" 
+    [nzFrontPagination]="false"  
+    (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+        <tr>
+            <th nzWidth="400px">标题/类型</th>
+            <th>舆情类型</th>
+            <th>舆情关键词</th>
+            <th>舆情网站</th>            
+            <th>发现时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listData">
+            <td>{{ data.title }}</td>
+            <td>
+                <div [ngSwitch]="data.type">
+                    <div *ngSwitchCase="1">正面舆情</div>
+                    <div *ngSwitchCase="-1" class="red">负面舆情</div>
+                    <div *ngSwitchDefault>其他舆情</div>
+                </div>
+            </td>
+            <td>{{ data.keywords }}</td>
+            <td class="url">
+                <a [href]="data.url" target="_blank">{{ data.url }}</a>
+            </td>
+           
+            <td>
+                {{ data.add_time | date:'yyyy-MM-dd HH:mm:ss'}}
+            </td>
+        </tr>
+    </tbody>
+  </nz-table>

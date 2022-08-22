@@ -17,10 +17,10 @@
                 <a [routerLink]="['/main/report']">全部舆情</a>
             </li>
             <li nz-menu-item>
-                <a [routerLink]="['/main/report']">正面舆情</a>
+                <a [routerLink]="['/main/positive-report']">正面舆情</a>
             </li>
             <li nz-menu-item>
-                <a [routerLink]="['/main/report']">负面舆情</a>
+                <a [routerLink]="['/main/negative-report']">负面舆情</a>
             </li>
           </ul>
         </li>
@@ -53,8 +53,9 @@
         <button class="loginb" nz-button nzType="text" [ngStyle]="{'margin-left':'75vw'}" [routerLink]="['/login']">登录</button>
       </nz-header>
       <nz-content>
+        <!-- 面包屑 -->
         <nz-breadcrumb>
-          <nz-breadcrumb-item>start/</nz-breadcrumb-item>
+          <nz-breadcrumb-item></nz-breadcrumb-item>
         </nz-breadcrumb>
         <div class="inner-content">
             <router-outlet></router-outlet>

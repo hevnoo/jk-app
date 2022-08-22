@@ -1,17 +1,19 @@
-
-.riqi{
-  height: 4vw;
-  background-color:#FFFCDE;
-  border: 1px solid #FFFCDE;
-  margin-bottom: 10px;
-  display: flex;
-  // justify-content: center;
-  align-items: center;
-}
-.riqi2{
+button{
   margin-left: 10px;
 }
-nz-date-picker {
-  margin: 0 8px 0 0;
+
+.main_top{
+  background: #FFFCED;
+  border: 1px solid #FFFCED;
+  line-height: 20px;
+  padding: 10px;
+  margin-bottom: 10px;    
 }
-//上面日期
+.url{
+  width: 200px;   
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.red{
+  color: red;
+}

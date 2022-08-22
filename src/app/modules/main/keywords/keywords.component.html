@@ -81,7 +81,8 @@
       <td>{{i}}
         <nz-divider nzType="vertical"></nz-divider>
         <a [ngStyle]="{'margin':'0 10px'}" (click)="get_id(data.id)">修改</a>
-        <a nzType="dashed" (click)="showDeleteConfirm(data.id)">删除</a>
+        <!-- <a nzType="dashed" (click)="showDeleteConfirm(data.id)">删除</a> -->
+        <a (click)="delete(data.id)">删除</a>
       </td>
     </tr>
   </tbody>

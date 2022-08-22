@@ -1,17 +1,25 @@
+ul{
+  list-style-type: none;
+}
+.input_list{    
+  padding: 0px;
+  li.input{
+      margin-bottom: 10px;
+     display: flex;
+      span{
+          width: 120px;
+          display: inline-block;
+          text-align: right;
+      }
+      input{
+         flex: 1;
+      }
+  }   
 
-.riqi{
-  height: 4vw;
-  background-color:#FFFCDE;
-  border: 1px solid #FFFCDE;
-  margin-bottom: 10px;
-  display: flex;
-  // justify-content: center;
-  align-items: center;
+  .btn{
+      float:right;
+      margin-right: 10px;
+  }
+
+
 }
-.riqi2{
-  margin-left: 10px;
-}
-nz-date-picker {
-  margin: 0 8px 0 0;
-}
-//上面日期

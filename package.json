@@ -23,6 +23,7 @@
     "highcharts-angular": "^3.0.0",
     "ng-zorro-antd": "13.3.2",
     "rxjs": "~7.5.0",
+    "silly-datetime": "^0.1.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

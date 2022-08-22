@@ -1,12 +1,7 @@
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Component, OnInit } from '@angular/core';
-
-
-interface ItemData {
-  id: number;
-  name: string;
-  age: number;
-  address: string;
-}
+import { HttpService } from 'src/app/service/http.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-alarm',
@@ -15,78 +10,55 @@ interface ItemData {
 })
 export class AlarmComponent implements OnInit {
 
-  date = null;
-  isEnglish = false;
-  mode = 'date';
-
-  constructor() { }
-
+  userinfo: any;
+  alarm = {
+    tel: "",
+    email: ""
+  }
+  constructor(private http: HttpService, 
+    private storage: StorageService, 
+    private message: NzMessageService
+  ) {
+    this.userinfo = this.storage.get("userinfo");
+  }
   ngOnInit(): void {
-    this.listOfData = new Array(200).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`
-    }));
+    this.getAlarm();
   }
-  onChange(result: Date): void {
-    console.log('onChange: ', result);
+  //弹出提示信息 success  error
+  createMessage(type: string, msg: string): void {
+    this.message.create(type, msg);
   }
-  
-
-  listOfSelection = [
-    {
-      text: 'Select All Row',
-      onSelect: () => {
-        this.onAllChecked(true);
+  //获取报警设置
+  getAlarm() {
+    var api = "http://yuqing.itying.com/api/alarmList";
+    this.http.get(api, {
+      auth: {
+        username: this.userinfo.token,
+        password: ''
       }
-    },
-    {
-      text: 'Select Odd Row',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
-        this.refreshCheckedStatus();
+    }).then((res: any) => {
+      // console.log(res);
+      if (res.data.success == true) {
+        this.alarm.tel = res.data.result.tel;
+        this.alarm.email = res.data.result.email;
       }
-    },
-    {
-      text: 'Select Even Row',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
-        this.refreshCheckedStatus();
+    })
+  }
+  //修改设置
+  setAlarm() {
+    var api = "http://yuqing.itying.com/api/editAlarm";
+    this.http.post(api, this.alarm, {
+      auth: {
+        username: this.userinfo.token,
+        password: ''
       }
-    }
-  ];
-  checked = false;
-  indeterminate = false;
-  listOfCurrentPageData: readonly ItemData[] = [];
-  listOfData: readonly ItemData[] = [];
-  setOfCheckedId = new Set<number>();
-
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
-  onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onCurrentPageDataChange($event: readonly ItemData[]): void {
-    this.listOfCurrentPageData = $event;
-    this.refreshCheckedStatus();
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    }).then((res: any) => {
+      // console.log(res);
+      if (res.data.success == true) {
+        this.createMessage("success","修改设置成功");
+      }else{
+        this.createMessage("error","修改设置失败");
+      }
+    })
   }
 }

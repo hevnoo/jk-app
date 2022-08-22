@@ -29,6 +29,13 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+//pipe引用方法和组件相似
+import { DataTimePipe } from 'src/app/pipe/data-time.pipe';
+import { NegativeReportComponent } from './negative-report/negative-report.component';
+import { PositiveReportComponent } from './positive-report/positive-report.component';
+//
+
 
 @NgModule({
   declarations: [
@@ -36,7 +43,10 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     HomeComponent,
     ReportComponent,
     KeywordsComponent,
-    AlarmComponent
+    AlarmComponent,
+    DataTimePipe,
+    NegativeReportComponent,
+    PositiveReportComponent
   ],
   imports: [
     CommonModule,
@@ -55,9 +65,11 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzSpaceModule,
     NzDividerModule ,
     NzModalModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzMessageModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N,useValue: zh_CN,},
+  ],
   //providers也是zorro对应的，也要引过来
 })
 export class MainModule { }

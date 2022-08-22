@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/service/http.service';
 import { StorageService } from 'src/app/service/storage.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
+// import { NzModalService } from 'ng-zorro-antd/modal';
+// import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-keywords',
@@ -46,13 +47,11 @@ export class KeywordsComponent implements OnInit {
 
   constructor(public http:HttpService,
     public storage:StorageService,
-    private modal: NzModalService
+
     ) { }
 
   ngOnInit(): void {
-    // this.total=this.listOfData.length*3;
     this.get_keywords()
-    // this.get_id()
   }
   //获取关键词
   get_keywords(){
@@ -64,7 +63,7 @@ export class KeywordsComponent implements OnInit {
     })
     .then(
       (res:any)=>{
-        console.log('获取关键词:',res)
+        // console.log('获取关键词:',res)
         this.listOfData = res.data.result;
       },
       (rej:any)=>{
@@ -82,7 +81,7 @@ export class KeywordsComponent implements OnInit {
     })
     .then(
       (res:any)=>{
-        console.log('增加关键词',res)
+        // console.log('增加关键词',res)
         this.get_keywords()
       },
       (rej:any)=>{
@@ -104,7 +103,7 @@ export class KeywordsComponent implements OnInit {
     .then(
       (res:any)=>{
         this.editData = res.data.result;
-        console.log('editData数据',this.editData)
+        // console.log('editData数据',this.editData)
       },
       (rej:any)=>{
         console.log(rej)
@@ -113,7 +112,6 @@ export class KeywordsComponent implements OnInit {
   }
   //执行编辑关键词
   handleEdit(){
-    // this.isEditVisible = true;
     this.isEditOkLoading = true;
     this.http.post(this.edit_api,this.editData,{
       auth: {
@@ -123,7 +121,7 @@ export class KeywordsComponent implements OnInit {
     })
     .then(
       (res:any)=>{
-        console.log('编辑:',res)
+        // console.log('编辑:',res)
         this.get_keywords()
         this.isEditVisible = false;
       },
@@ -133,41 +131,30 @@ export class KeywordsComponent implements OnInit {
     )
   }
   //删除关键词
-  showDeleteConfirm(id: any): void {
-    this.modal.confirm({
-      nzTitle: '确定要删除?',
-      nzContent: '<b style="color: red;">一条消息</b>',
-      nzOkText: '是',
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: (id) => {
-        this.delete(id)
-      },
-      nzCancelText: '否',
-      nzOnCancel: () => console.log('Cancel')
-    });
-  }
-  //
   delete(id: any){
-    let del_api = 'http://yuqing.itying.com/api/deleteKeywords?id=' + id;
-    this.http.get(del_api,{
-      auth: {
-        username:this.token,
-        password: ''
-      }
-    })
-    .then(
-      (res:any)=>{
-        console.log('删除成功:',res)
-        if(res.data.success == false){
-          console.log(res.data.message)
+    let flag = confirm('确定要删除吗？')
+    if(flag){
+      let del_api = 'http://yuqing.itying.com/api/deleteKeywords?id=' + id;
+      this.http.get(del_api,{
+        auth: {
+          username:this.token,
+          password: ''
         }
-        this.get_keywords()
-      },
-      (rej:any)=>{
-        console.log(rej)
-      }
-    )
+      })
+      .then(
+        (res:any)=>{
+          // console.log('删除成功:',res)
+          if(res.data.success == false){
+            console.log(res.data.message)
+          }
+          this.get_keywords()
+        },
+        (rej:any)=>{
+          console.log(rej)
+        }
+      )
+    }
+
   }
 
   showModal(): void {
@@ -193,7 +180,7 @@ export class KeywordsComponent implements OnInit {
   }
 
   onQueryParamsChange(params:any): void {
-    console.log(params);
+    // console.log(params);
   }
 
 }

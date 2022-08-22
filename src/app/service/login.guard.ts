@@ -26,7 +26,7 @@ export class LoginGuard implements CanActivate {
           if(!userinfo||!userinfo.username){
             this.router.navigate(["/login"]);
           }else{
-            //2、请求接口验证token
+            //2、请求接口验证token是否过期
             let t_api = "http://yuqing.itying.com/api/validateToken";
             this.http.get(t_api, {
               auth: {

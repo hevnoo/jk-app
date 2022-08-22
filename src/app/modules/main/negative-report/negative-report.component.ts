@@ -3,11 +3,11 @@ import { HttpService } from 'src/app/service/http.service';
 import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  selector: 'app-negative-report',
+  templateUrl: './negative-report.component.html',
+  styleUrls: ['./negative-report.component.scss']
 })
-export class ReportComponent implements OnInit {
+export class NegativeReportComponent implements OnInit {
 
   start_time="";
   end_time="";
@@ -31,19 +31,17 @@ export class ReportComponent implements OnInit {
     this.userinfo = this.storage.get("userinfo");
    }
   ngOnInit(): void {
-    // console.log('111')
     this.getReportList()
   }
   getReportList():void{
     this.loading=true;
-    var api = `http://yuqing.itying.com/api/reportList?page=${this.pageIndex}&pageSize=${this.pageSize}&startTime=${this.start_unix_time}&endTime=${this.end_unix_time}`;
+    var api = `http://yuqing.itying.com/api/reportList?page=${this.pageIndex}&pageSize=${this.pageSize}&startTime=${this.start_unix_time}&endTime=${this.end_unix_time}&type=-1`;
     this.http.get(api, {
       auth: {
         username: this.userinfo.token,
         password: ''
       }
-    }).then((res: any) => {
-      console.log(res);     
+    }).then((res: any) => {   
       //总数量
       this.total=res.data.total;
       //舆情报告信息
@@ -52,7 +50,7 @@ export class ReportComponent implements OnInit {
       this.loading=false;
     })
   }
-  onQueryParamsChange(params: any){
+  onQueryParamsChange(params:any){
     console.log(params.pageIndex)
     this.pageIndex=params.pageIndex;
     this.getReportList();
@@ -63,7 +61,6 @@ export class ReportComponent implements OnInit {
     //起始日期
     var startDate=new Date(this.start_time);
     this.start_unix_time=Math.ceil(startDate.getTime()/1000);
-    //原生js获取时间戳的方法：new Data()传入日期，getTime()获取时间戳
     //结束日期
     var endDate=new Date(this.end_time);
     this.end_unix_time=Math.ceil(endDate.getTime()/1000);
@@ -71,4 +68,3 @@ export class ReportComponent implements OnInit {
     this.getReportList();
   }
 }
-  

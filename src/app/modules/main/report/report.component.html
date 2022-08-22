@@ -1,59 +1,50 @@
-<div class="riqi">
-  <div class="riqi2">
-    <nz-space>
-      <nz-select *nzSpaceItem [(ngModel)]="mode">
-        <nz-option nzValue="date" nzLabel="Date"></nz-option>
-        <nz-option nzValue="week" nzLabel="Week"></nz-option>
-        <nz-option nzValue="month" nzLabel="Month"></nz-option>
-        <nz-option nzValue="year" nzLabel="Year"></nz-option>
-      </nz-select>
-      <nz-date-picker *nzSpaceItem [nzMode]="mode"></nz-date-picker>
-    </nz-space>
-    <button nz-button nzType="primary">
-      <i nz-icon nzType="search"></i>
-      搜索
-    </button>
-  </div>
-  </div>
-    <!-- 上面日期 -->
-    <nz-table #basicTable 
-    [nzData]="listOfData"
-    [nzFrontPagination]="false"
-    [nzLoading]="loading"
-    [nzTotal]="total"
-    [nzPageSize]="pageSize"
-    [nzPageIndex]="pageIndex"
-    (nzQueryParams)="onQueryParamsChange($event)"
-    >
-      <thead>
-        <tr>
+<div class="main_top">
+
+  <nz-date-picker [(ngModel)]="start_time" nzPlaceHolder="起始日期"></nz-date-picker>
+
+  -
+
+  <nz-date-picker [(ngModel)]="end_time" nzPlaceHolder="结束日期"></nz-date-picker>
+
+  <button nz-button nzType="primary" (click)="doSearch()">搜索</button>
+
+</div>
+
+<nz-table #basicTable 
+  [nzData]="listData" 
+  [nzLoading]="loading" 
+  [nzTotal]="total" 
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex" 
+  [nzFrontPagination]="false"  
+  (nzQueryParams)="onQueryParamsChange($event)">
+  <thead>
+      <tr>
           <th nzWidth="400px">标题/类型</th>
-            <th>舆情类型</th>
-            <th>舆情关键词</th>
-            <th>舆情网站</th>
-            <th>发现时间</th>
-            <th>帖子时间</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of listOfData">
+          <th>舆情类型</th>
+          <th>舆情关键词</th>
+          <th>舆情网站</th>            
+          <th>发现时间</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let data of listData">
           <td>{{ data.title }}</td>
-          <td>{{ data.type }}</td>
-          <td>{{ data.keyword }}</td>
           <td>
-              {{ data.site }}
+              <div [ngSwitch]="data.type">
+                  <div *ngSwitchCase="1">正面舆情</div>
+                  <div *ngSwitchCase="-1" class="red">负面舆情</div>
+                  <div *ngSwitchDefault>其他舆情</div>
+              </div>
           </td>
+          <td>{{ data.keywords }}</td>
+          <td class="url">
+              <a [href]="data.url" target="_blank">{{ data.url }}</a>
+          </td>
+         
           <td>
-              {{ data.update_time }}
+              {{ data.add_time | date:'yyyy-MM-dd HH:mm:ss'}}
           </td>
-          <td>
-              {{ data.add_time }}
-          </td>
-          <!-- <td>
-            <a>Action 一 {{ data.name }}</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
-          </td> -->
-        </tr>
-      </tbody>
-    </nz-table>
+      </tr>
+  </tbody>
+</nz-table>
