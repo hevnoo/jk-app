@@ -24,8 +24,12 @@
   nz-header {
     background: #fff;
     padding: 0;
-    .loginb{
+    position: relative;
+    .loginback{
       background-color:aqua;
+      position: absolute;
+      top: 25%;
+      right: 3%;
     }
   }
 

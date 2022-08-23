@@ -3,8 +3,12 @@ button{
 }
 
 .main_top{
-    background: #FFFCED;
-    border: 1px solid #FFFCED;
+    // background: #FFFCED;
+    // border: 1px solid #FFFCED;
+    // background: green;
+    border: 1px solid rgba(58, 109, 90, 0.9);
+    background-image: linear-gradient(269deg, rgba(58, 109, 90, 0.3), rgba(58, 109, 90, 0.6) 50%, rgba(58, 109, 90, 0.9));
+    background-color: initial;
     line-height: 20px;
     padding: 10px;
     margin-bottom: 10px;    

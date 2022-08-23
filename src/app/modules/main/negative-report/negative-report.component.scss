@@ -3,8 +3,11 @@ button{
 }
 
 .main_top{
-    background: #FFFCED;
-    border: 1px solid #FFFCED;
+    // background: #FFFCED;
+    // border: 1px solid #FFFCED;
+    border: 1px solid rgba(235, 110, 110, 110);
+    background-image: linear-gradient(269deg, rgba(241, 162, 162, 0.3), rgba(235, 133, 133, 0.6) 50%, rgba(235, 110, 110, 0.9));
+    background-color: initial;
     line-height: 20px;
     padding: 10px;
     margin-bottom: 10px;    

@@ -50,7 +50,15 @@
           [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
           (click)="isCollapsed = !isCollapsed"
         ></i>
-        <button class="loginb" nz-button nzType="text" [ngStyle]="{'margin-left':'75vw'}" [routerLink]="['/login']">登录</button>
+        <button class="loginback" nz-button nzType="text" [routerLink]="['/login']">返回登录</button>
+        <!-- [ngStyle]="{'margin':'auto auto auto 75vw'}" -->
+        <!-- 颜色选择器 -->
+        <!-- <a class="div-bar" nz-icon nzType="edit" nzTheme="outline">
+
+            <div id="colorBar" class="color-bar"></div>
+
+            <div id="divSlider" class="div-slider"></div>
+        </a> -->
       </nz-header>
       <nz-content>
         <!-- 面包屑 -->
